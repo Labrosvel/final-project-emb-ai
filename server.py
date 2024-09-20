@@ -18,13 +18,17 @@ def emot_detector():
     # Pass the text to the emotion_detector function and store the response
     payload = emotion_detector(text_to_analyze)
 
+    # Check if dominant emotion is None indicating invalid input
+    if payload['dominant_emotion'] == None:
+        response = "Invalid text! Please try again!"
     # Formatting the response message
-    response = (
-        f"For the given statement, the system response is 'anger': {payload['anger']}, "
-        f"'disgust': {payload['disgust']}, 'fear': {payload['fear']}, "
-        f"'joy': {payload['joy']} and 'sadness': {payload['sadness']}. "
-        f"The dominant emotion is {payload['dominant_emotion']}."
-    )
+    else: 
+        response = (
+            f"For the given statement, the system response is 'anger': {payload['anger']}, "
+            f"'disgust': {payload['disgust']}, 'fear': {payload['fear']}, "
+            f"'joy': {payload['joy']} and 'sadness': {payload['sadness']}. "
+            f"The dominant emotion is {payload['dominant_emotion']}."
+        )
     
     # Output the formatted response
     return response
