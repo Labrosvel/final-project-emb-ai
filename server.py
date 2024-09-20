@@ -12,6 +12,9 @@ app = Flask("Emotion Detector")
 
 @app.route("/emotionDetector")
 def emot_detector():
+    ''' This function gets the text from the input field and returns different output
+        under certain conditions
+    '''
     # Retrieve the text to analyze from the request arguments
     text_to_analyze = request.args.get('textToAnalyze')
 
@@ -19,22 +22,23 @@ def emot_detector():
     payload = emotion_detector(text_to_analyze)
 
     # Check if dominant emotion is None indicating invalid input
-    if payload['dominant_emotion'] == None:
+    if payload['dominant_emotion'] is None:
         response = "Invalid text! Please try again!"
     # Formatting the response message
-    else: 
+    else:
         response = (
             f"For the given statement, the system response is 'anger': {payload['anger']}, "
             f"'disgust': {payload['disgust']}, 'fear': {payload['fear']}, "
             f"'joy': {payload['joy']} and 'sadness': {payload['sadness']}. "
             f"The dominant emotion is {payload['dominant_emotion']}."
         )
-    
     # Output the formatted response
     return response
-    
+
 @app.route("/")
 def render_index_page():
+    ''' This function renders the main template at root directory
+    '''
     return render_template('index.html')
 
 if __name__ == "__main__":
